@@ -243,16 +243,85 @@ export const WATCH_MODELS: WatchModel[] = [
   {
     slug: "orenji-hachi",
     name: "Orenji Hachi",
-    color: "Orange",
+    color: "Bleu marine",
     tagline: "Huit en japonais",
-    allowedColors: ["Orange"],
+    image: "/images/Orenji_Hachi_Navy_Blue_Navy_blue.png",
+    allowedColors: ["Noir", "Bleu marine", "Blanc"],
+    combos: {
+      Noir: {
+        Noir: "/images/Orenji_Hachi_Black_Black.png",
+        "Bleu marine": "/images/Orenji_Hachi_Black_Navy_Blue.png",
+        Blanc: "/images/Orenji_Hachi_Black_White.png",
+      },
+      "Bleu marine": {
+        Noir: "/images/Orenji_Hachi_Navy_Blue_Black.png",
+        "Bleu marine": "/images/Orenji_Hachi_Navy_Blue_Navy_blue.png",
+        Blanc: "/images/Orenji_Hachi_Navy_Blue_White.png",
+      },
+      Blanc: {
+        Noir: "/images/Orenji_Hachi_White_Black.png",
+        "Bleu marine": "/images/Orenji_Hachi_White_Navy_Blue.png",
+        Blanc: "/images/Orenji_Hachi_White_White.png",
+      },
+    },
   },
   {
     slug: "huit-blanc",
     name: "Huit Blanc",
     color: "Blanc",
     tagline: "Huit en français",
-    allowedColors: ["Blanc"],
+    image: "/images/Huit_Blanc_White_White.png",
+    allowedColors: ["Noir", "Rose foncé", "Vert", "Bleu ciel", "Vert pâle", "Bleu marine", "Rose", "Blanc"],
+    combos: {
+      Noir: {
+        Noir: "/images/Huit_Blanc_Black_Black.png",
+        "Rose foncé": "/images/Huit_Blanc_Black_Dark_Pink.png",
+        Vert: "/images/Huit_Blanc_Black_Green.png",
+        "Bleu ciel": "/images/Huit_Blanc_Black_Light_Blue.png",
+        "Vert pâle": "/images/Huit_Blanc_Black_Mint.png",
+        "Bleu marine": "/images/Huit_Blanc_Black_Navy_Blue.png",
+        Rose: "/images/Huit_Blanc_Black_Pink.png",
+        Blanc: "/images/Huit_Blanc_Black_White.png",
+      },
+      "Rose foncé": {
+        Noir: "/images/Huit_Blanc_Dark_Pink_Black.png",
+        "Rose foncé": "/images/Huit_Blanc_Dark_Pink_Dark_Pink.png",
+        Blanc: "/images/Huit_Blanc_Dark_Pink_White.png",
+      },
+      Vert: {
+        Noir: "/images/Huit_Blanc_Green_Black.png",
+        Vert: "/images/Huit_Blanc_Green_Green.png",
+        Blanc: "/images/Huit_Blanc_Green_White.png",
+      },
+      "Bleu ciel": {
+        Noir: "/images/Huit_Blanc_Light_Blue_Black.png",
+        Blanc: "/images/Huit_Blanc_Light_Blue_White.png",
+      },
+      "Vert pâle": {
+        Noir: "/images/Huit_Blanc_Mint_Black.png",
+        "Vert pâle": "/images/Huit_Blanc_Mint_Mint.png",
+        Blanc: "/images/Huit_Blanc_Mint_White.png",
+      },
+      "Bleu marine": {
+        Noir: "/images/Huit_Blanc_Navy_Blue_Black.png",
+        "Bleu marine": "/images/Huit_Blanc_Navy_Blue_Navy_Blue.png",
+        Blanc: "/images/Huit_Blanc_Navy_Blue_White.png",
+      },
+      Rose: {
+        Noir: "/images/Huit_Blanc_Pink_Black.png",
+        Rose: "/images/Huit_Blanc_Pink_Pink.png",
+        Blanc: "/images/Huit_Blanc_Pink_White.png",
+      },
+      Blanc: {
+        Noir: "/images/Huit_Blanc_White_Black.png",
+        "Rose foncé": "/images/Huit_Blanc_White_Dark_Pink.png",
+        Vert: "/images/Huit_Blanc_White_Green.png",
+        "Bleu ciel": "/images/Huit_Blanc_White_Light_blue.png",
+        "Bleu marine": "/images/Huit_Blanc_White_Navy_Blue.png",
+        Rose: "/images/Huit_Blanc_White_Pink.png",
+        Blanc: "/images/Huit_Blanc_White_White.png",
+      },
+    },
   },
 ]
 

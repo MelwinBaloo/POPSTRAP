@@ -1,256 +1,279 @@
-// Fonction helper pour construire les chemins des images
-const getImageUrl = (modelName: string, colorCombination: string) => {
-  return `/images/${modelName}_${colorCombination}.png`;
-};
+// Auto-généré : images locales dans /public/images/
+export interface WatchModel {
+  slug: string;
+  name: string;
+  color: string;
+  tagline: string;
+  image?: string;
+  allowedColors?: string[];
+  combos?: Record<string, Record<string, string>>;
+}
 
-// Models avec les images locales
-export const models = [
+export const WATCH_MODELS: WatchModel[] = [
   {
-    id: "otto-rosso",
+    slug: "otto-rosso",
     name: "Otto Rosso",
-    image: "/images/Otto_Rosso_Rose_Rose.png",
+    color: "Rose",
+    tagline: "Huit en italien",
+    image: "/images/Otto_Rosso_Pink_Pink.png",
     allowedColors: ["Rose", "Rose foncé", "Blanc", "Noir"],
     combos: {
       Rose: {
-        Rose: getImageUrl("Otto_Rosso", "Rose_Rose"),
-        "Rose foncé": getImageUrl("Otto_Rosso", "Rose_Rosefonce"),
-        Blanc: getImageUrl("Otto_Rosso", "Rose_Blanc"),
-        Noir: getImageUrl("Otto_Rosso", "Rose_Noir"),
+        Rose: "/images/Otto_Rosso_Pink_Pink.png",
+        "Rose foncé": "/images/Otto_Rosso_Pink_Dark_Pink.png",
+        Blanc: "/images/Otto_Rosso_Pink_White.png",
+        Noir: "/images/Otto_Rosso_Pink_Black.png",
       },
       "Rose foncé": {
-        Rose: getImageUrl("Otto_Rosso", "Rosefonce_Rose"),
-        "Rose foncé": getImageUrl("Otto_Rosso", "Rosefonce_Rosefonce"),
-        Blanc: getImageUrl("Otto_Rosso", "Rosefonce_Blanc"),
-        Noir: getImageUrl("Otto_Rosso", "Rosefonce_Noir"),
+        "Rose foncé": "/images/Otto_Rosso_Dark_Pink_Dark_Pink.png",
+        Blanc: "/images/Otto_Rosso_Dark_Pink_White.png",
+        Noir: "/images/Otto_Rosso_Dark_Pink_Black.png",
       },
       Blanc: {
-        Rose: getImageUrl("Otto_Rosso", "Blanc_Rose"),
-        "Rose foncé": getImageUrl("Otto_Rosso", "Blanc_Rosefonce"),
-        Blanc: getImageUrl("Otto_Rosso", "Blanc_Blanc"),
-        Noir: getImageUrl("Otto_Rosso", "Blanc_Noir"),
+        Rose: "/images/Otto_Rosso_White_Pink.png",
+        "Rose foncé": "/images/Otto_Rosso_White_Dark_Pink.png",
+        Blanc: "/images/Otto_Rosso_White_White.png",
+        Noir: "/images/Otto_Rosso_White_Black.png",
       },
       Noir: {
-        Rose: getImageUrl("Otto_Rosso", "Noir_Rose"),
-        "Rose foncé": getImageUrl("Otto_Rosso", "Noir_Rosefonce"),
-        Blanc: getImageUrl("Otto_Rosso", "Noir_Blanc"),
-        Noir: getImageUrl("Otto_Rosso", "Noir_Noir"),
+        Rose: "/images/Otto_Rosso_Black_Pink.png",
+        "Rose foncé": "/images/Otto_Rosso_Black_Dark_Pink.png",
+        Blanc: "/images/Otto_Rosso_Black_White.png",
+        Noir: "/images/Otto_Rosso_Black_Black.png",
       },
     },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre de design premium avec coloris italiens",
-    productHandle: "otto-rosso-cadran",
   },
   {
-    id: "lan-ba",
-    name: "Lân Bà",
-    image: "/images/Lan_Ba_Cyan_Cyan.png",
-    allowedColors: ["Blanc", "Marine", "Cyan", "Noir"],
+    slug: "lan-ba",
+    name: "Lán Ba",
+    color: "Cyan",
+    tagline: "Huit en mandarin",
+    image: "/images/Lanbablueblue.png",
+    allowedColors: ["Cyan", "Bleu marine", "Blanc", "Noir"],
     combos: {
-      Blanc: {
-        Blanc: getImageUrl("Lan_Ba", "Blanc_Blanc"),
-        Marine: getImageUrl("Lan_Ba", "Blanc_Marine"),
-        Cyan: getImageUrl("Lan_Ba", "Blanc_Cyan"),
-        Noir: getImageUrl("Lan_Ba", "Blanc_Noir"),
-      },
-      Marine: {
-        Blanc: getImageUrl("Lan_Ba", "Marine_Blanc"),
-        Marine: getImageUrl("Lan_Ba", "Marine_Marine"),
-        Cyan: getImageUrl("Lan_Ba", "Marine_Cyan"),
-        Noir: getImageUrl("Lan_Ba", "Marine_Noir"),
-      },
       Cyan: {
-        Blanc: getImageUrl("Lan_Ba", "Cyan_Blanc"),
-        Marine: getImageUrl("Lan_Ba", "Cyan_Marine"),
-        Cyan: getImageUrl("Lan_Ba", "Cyan_Cyan"),
-        Noir: getImageUrl("Lan_Ba", "Cyan_Noir"),
+        Cyan: "/images/Lanbablueblue.png",
+        "Bleu marine": "/images/Lanbabluebluedark.png",
+        Blanc: "/images/Lanbabluebluewhite.png",
+        Noir: "/images/Lanbablueblueblack.png",
+      },
+      "Bleu marine": {
+        Cyan: "/images/Lanbabluedarkblue.png",
+        "Bleu marine": "/images/Lanbabluedarkbluedark.png",
+        Blanc: "/images/Lanbabluedarkwhite.png",
+        Noir: "/images/Lanbabluedarkblueblack.png",
+      },
+      Blanc: {
+        Cyan: "/images/Lanbawhiteblue.png",
+        "Bleu marine": "/images/Lanbawhitedarkblue.png",
+        Blanc: "/images/Lanbawhitewhite.png",
+        Noir: "/images/Lanbawhiteblack.png",
       },
       Noir: {
-        Blanc: getImageUrl("Lan_Ba", "Noir_Blanc"),
-        Marine: getImageUrl("Lan_Ba", "Noir_Marine"),
-        Cyan: getImageUrl("Lan_Ba", "Noir_Cyan"),
-        Noir: getImageUrl("Lan_Ba", "Noir_Noir"),
+        Cyan: "/images/Lanbablackblue.png",
+        "Bleu marine": "/images/Lan_Ba_Black_Lan_Ba_Dark_Blue.png",
+        Noir: "/images/Lan_Ba_Black_Black.png",
       },
     },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre vietnamienne moderne",
-    productHandle: "lan-ba-cadran",
   },
   {
-    id: "green-eight",
+    slug: "green-eight",
     name: "Green Eight",
-    image: "/images/Green_Eight_Vert_Vert.png",
-    allowedColors: ["Blanc", "Noir", "Vert"],
+    color: "Vert",
+    tagline: "Huit en anglais",
+    image: "/images/Green_Eight_Green_Green.png",
+    allowedColors: ["Noir", "Vert", "Blanc"],
     combos: {
-      Blanc: {
-        Blanc: getImageUrl("Green_Eight", "Blanc_Blanc"),
-        Noir: getImageUrl("Green_Eight", "Blanc_Noir"),
-        Vert: getImageUrl("Green_Eight", "Blanc_Vert"),
-      },
       Noir: {
-        Blanc: getImageUrl("Green_Eight", "Noir_Blanc"),
-        Noir: getImageUrl("Green_Eight", "Noir_Noir"),
-        Vert: getImageUrl("Green_Eight", "Noir_Vert"),
+        Noir: "/images/Green_Eight_Black_Black.png",
+        Vert: "/images/Green_Eight_Black_Green.png",
+        Blanc: "/images/Green_Eight_Black_White.png",
       },
       Vert: {
-        Blanc: getImageUrl("Green_Eight", "Vert_Blanc"),
-        Noir: getImageUrl("Green_Eight", "Vert_Noir"),
-        Vert: getImageUrl("Green_Eight", "Vert_Vert"),
+        Noir: "/images/Green_Eight_Green_Black.png",
+        Vert: "/images/Green_Eight_Green_Green.png",
+        Blanc: "/images/Green_Eight_Green_White.png",
+      },
+      Blanc: {
+        Noir: "/images/Green_Eight_White_Black.png",
+        Vert: "/images/Green_Eight_White_Green.png",
+        Blanc: "/images/Green_Eight_White_White.png",
       },
     },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre minimaliste écologique",
-    productHandle: "green-eight-cadran",
   },
   {
-    id: "ocho-negro",
+    slug: "ocho-negro",
     name: "Ocho Negro",
-    image: "/images/Ocho_Negro_Rose_Blanc.png",
-    allowedColors: ["Blanc", "Noir", "Rose", "Rose foncé", "Bleu ciel", "Bleu marine", "Vert", "Vert foncé", "Turquoise", "Rouge"],
+    color: "Noir",
+    tagline: "Huit en espagnol",
+    image: "/images/Ocho_Negro_Black_black.png",
+    allowedColors: ["Noir", "Blanc", "Bleu marine", "Bleu ciel", "Turquoise", "Vert", "Vert pâle", "Rose", "Rose foncé", "Rouge"],
     combos: {
-      Blanc: {
-        Blanc: getImageUrl("Ocho_Negro", "Blanc_Blanc"),
-        Noir: getImageUrl("Ocho_Negro", "Blanc_Noir"),
-        Rose: getImageUrl("Ocho_Negro", "Blanc_Rose"),
-        "Rose foncé": getImageUrl("Ocho_Negro", "Blanc_Rosefonce"),
-        "Bleu ciel": getImageUrl("Ocho_Negro", "Blanc_Bleuciel"),
-        "Bleu marine": getImageUrl("Ocho_Negro", "Blanc_Bleumarine"),
-        Vert: getImageUrl("Ocho_Negro", "Blanc_Vert"),
-        "Vert foncé": getImageUrl("Ocho_Negro", "Blanc_Vertfonce"),
-        Turquoise: getImageUrl("Ocho_Negro", "Blanc_Turquoise"),
-        Rouge: getImageUrl("Ocho_Negro", "Blanc_Rouge"),
-      },
       Noir: {
-        Blanc: getImageUrl("Ocho_Negro", "Noir_Blanc"),
-        Noir: getImageUrl("Ocho_Negro", "Noir_Noir"),
-        Rose: getImageUrl("Ocho_Negro", "Noir_Rose"),
-        "Rose foncé": getImageUrl("Ocho_Negro", "Noir_Rosefonce"),
-        "Bleu ciel": getImageUrl("Ocho_Negro", "Noir_Bleuciel"),
-        "Bleu marine": getImageUrl("Ocho_Negro", "Noir_Bleumarine"),
-        Vert: getImageUrl("Ocho_Negro", "Noir_Vert"),
-        "Vert foncé": getImageUrl("Ocho_Negro", "Noir_Vertfonce"),
-        Turquoise: getImageUrl("Ocho_Negro", "Noir_Turquoise"),
-        Rouge: getImageUrl("Ocho_Negro", "Noir_Rouge"),
+        Noir: "/images/Ocho_Negro_Black_black.png",
+        Blanc: "/images/Ocho_Negro_Black_white.png",
+        "Bleu marine": "/images/Ocho_Negro_Black_blue.png",
+        "Bleu ciel": "/images/Ocho_Negro_Black_bluelight.png",
+        Vert: "/images/Ocho_Negro_Black_green.png",
+        "Vert pâle": "/images/Ocho_Negro_Black_mint.png",
+        Rose: "/images/Ocho_Negro_Black_rose.png",
+        Rouge: "/images/Ocho_Negro_Black_RED.png",
       },
-    },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre très colorée avec 10 combinaisons",
-    productHandle: "ocho-negro-cadran",
-  },
-  {
-    id: "otg-roz",
-    name: "OTG Roz",
-    image: "/images/Otg_Roz_Turquoise_Turquoise.png",
-    allowedColors: ["Blanc", "Noir", "Rose", "Turquoise", "Jaune"],
-    combos: {
       Blanc: {
-        Blanc: getImageUrl("Otg_Roz", "Blanc_Blanc"),
-        Noir: getImageUrl("Otg_Roz", "Blanc_Noir"),
-        Rose: getImageUrl("Otg_Roz", "Blanc_Rose"),
-        Turquoise: getImageUrl("Otg_Roz", "Blanc_Turquoise"),
-        Jaune: getImageUrl("Otg_Roz", "Blanc_Jaune"),
+        Noir: "/images/Ocho_Negro_White_Black.png",
+        Blanc: "/images/Ocho_Negro_White_White.png",
+        "Bleu marine": "/images/Ocho_Negro_White_Navy_Blue.png",
+        "Bleu ciel": "/images/Ocho_Negro_White_Light_Blue.png",
+        Turquoise: "/images/Ocho_Negro_White_Turquoise.png",
+        Vert: "/images/Ocho_Negro_White_Green.png",
+        "Vert pâle": "/images/Ocho_Negro_White_Mint.png",
+        Rose: "/images/Ocho_Negro_White_Pink.png",
+        "Rose foncé": "/images/Ocho_Negro_White_Dark_Pink.png",
       },
-      Noir: {
-        Blanc: getImageUrl("Otg_Roz", "Noir_Blanc"),
-        Noir: getImageUrl("Otg_Roz", "Noir_Noir"),
-        Rose: getImageUrl("Otg_Roz", "Noir_Rose"),
-        Turquoise: getImageUrl("Otg_Roz", "Noir_Turquoise"),
-        Jaune: getImageUrl("Otg_Roz", "Noir_Jaune"),
-      },
-      Rose: {
-        Blanc: getImageUrl("Otg_Roz", "Rose_Blanc"),
-        Noir: getImageUrl("Otg_Roz", "Rose_Noir"),
-        Rose: getImageUrl("Otg_Roz", "Rose_Rose"),
-        Turquoise: getImageUrl("Otg_Roz", "Rose_Turquoise"),
-        Jaune: getImageUrl("Otg_Roz", "Rose_Jaune"),
-      },
-      Turquoise: {
-        Blanc: getImageUrl("Otg_Roz", "Turquoise_Blanc"),
-        Noir: getImageUrl("Otg_Roz", "Turquoise_Noir"),
-        Rose: getImageUrl("Otg_Roz", "Turquoise_Rose"),
-        Turquoise: getImageUrl("Otg_Roz", "Turquoise_Turquoise"),
-        Jaune: getImageUrl("Otg_Roz", "Turquoise_Jaune"),
-      },
-      Jaune: {
-        Blanc: getImageUrl("Otg_Roz", "Jaune_Blanc"),
-        Noir: getImageUrl("Otg_Roz", "Jaune_Noir"),
-        Rose: getImageUrl("Otg_Roz", "Jaune_Rose"),
-        Turquoise: getImageUrl("Otg_Roz", "Jaune_Turquoise"),
-        Jaune: getImageUrl("Otg_Roz", "Jaune_Jaune"),
-      },
-    },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre rose et turquoise vibrant",
-    productHandle: "otg-roz-cadran",
-  },
-  {
-    id: "blaue-acht",
-    name: "Blaue Acht",
-    image: "/images/Blaue_Acht_Bleuciel_Bleuciel.png",
-    allowedColors: ["Blanc", "Noir", "Bleu ciel", "Vert pâle"],
-    combos: {
-      Blanc: {
-        Blanc: getImageUrl("Blaue_Acht", "Blanc_Blanc"),
-        Noir: getImageUrl("Blaue_Acht", "Blanc_Noir"),
-        "Bleu ciel": getImageUrl("Blaue_Acht", "Blanc_Bleuciel"),
-        "Vert pâle": getImageUrl("Blaue_Acht", "Blanc_Vertpale"),
-      },
-      Noir: {
-        Blanc: getImageUrl("Blaue_Acht", "Noir_Blanc"),
-        Noir: getImageUrl("Blaue_Acht", "Noir_Noir"),
-        "Bleu ciel": getImageUrl("Blaue_Acht", "Noir_Bleuciel"),
-        "Vert pâle": getImageUrl("Blaue_Acht", "Noir_Vertpale"),
+      "Bleu marine": {
+        Noir: "/images/Ocho_Negro_Navy_Blue_Black.png",
+        Blanc: "/images/Ocho_Negro_Navy_Blue_white.png",
+        "Bleu marine": "/images/Ocho_Negro_Navy_Blue_Navy_Blue.png",
       },
       "Bleu ciel": {
-        Blanc: getImageUrl("Blaue_Acht", "Bleuciel_Blanc"),
-        Noir: getImageUrl("Blaue_Acht", "Bleuciel_Noir"),
-        "Bleu ciel": getImageUrl("Blaue_Acht", "Bleuciel_Bleuciel"),
-        "Vert pâle": getImageUrl("Blaue_Acht", "Bleuciel_Vertpale"),
+        Noir: "/images/Ocho_Negro_Light_Blue_Black.png",
+        Blanc: "/images/Ocho_Negro_Light_Blue_White.png",
+        "Bleu ciel": "/images/Ocho_Negro_Light_Blue_Light_Blue.png",
+      },
+      Vert: {
+        Noir: "/images/Ocho_Negro_Green_Black.png",
+        Blanc: "/images/Ocho_Negro_Green_White.png",
+        Vert: "/images/Ocho_Negro_Green_Green.png",
       },
       "Vert pâle": {
-        Blanc: getImageUrl("Blaue_Acht", "Vertpale_Blanc"),
-        Noir: getImageUrl("Blaue_Acht", "Vertpale_Noir"),
-        "Bleu ciel": getImageUrl("Blaue_Acht", "Vertpale_Bleuciel"),
-        "Vert pâle": getImageUrl("Blaue_Acht", "Vertpale_Vertpale"),
+        Noir: "/images/Ocho_Negro_Mint_Black.png",
+        Blanc: "/images/Ocho_Negro_Mint_White.png",
+        "Vert pâle": "/images/Ocho_Negro_Mint_Mint.png",
+      },
+      Rose: {
+        Noir: "/images/Ocho_Negro_Pink_Black.png",
+        Blanc: "/images/Ocho_Negro_Pink_White.png",
+        Rose: "/images/Ocho_Negro_Pink_Pink.png",
+      },
+      "Rose foncé": {
+        Noir: "/images/Ocho_Negro_Dark_Pink_Black.png",
+        Blanc: "/images/Ocho_Negro_Dark_Pink_White.png",
+        "Rose foncé": "/images/Ocho_Negro_Dark_Pink_Dark_Pink.png",
       },
     },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre bleu et vert pastel allemande",
-    productHandle: "blaue-acht-cadran",
   },
   {
-    id: "orenji-hachi",
-    name: "Orenji Hachi",
-    image: "/images/Orenji_Hachi_Orange_Orange.png",
-    allowedColors: ["Orange"],
+    slug: "otg-roz",
+    name: "OTG Roz",
+    color: "Turquoise",
+    tagline: "Huit en hébreu",
+    image: "/images/OTG_Roz_Turquoise_Turquoise.png",
+    allowedColors: ["Turquoise", "Rose", "Blanc", "Noir", "Jaune"],
     combos: {
-      Orange: {
-        Orange: getImageUrl("Orenji_Hachi", "Orange_Orange"),
+      Turquoise: {
+        Turquoise: "/images/OTG_Roz_Turquoise_Turquoise.png",
+        Rose: "/images/OTG_Roz_Turquoise_OTG_Pink.png",
+        Blanc: "/images/OTG_Roz_Turquoise_White.png",
+        Noir: "/images/OTG_Roz_Turquoise_Black.png",
+        Jaune: "/images/OTG_Roz_Turquoise_Yellow.png",
       },
-    },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre orange minimaliste japonaise",
-    productHandle: "orenji-hachi-cadran",
-  },
-  {
-    id: "huit-blanc",
-    name: "Huit Blanc",
-    image: "/images/Huit_Blanc_Blanc_Blanc.png",
-    allowedColors: ["Blanc"],
-    combos: {
+      Rose: {
+        Turquoise: "/images/OTG_Roz_OTG_Pink_Turquoise.png",
+        Rose: "/images/OTG_Roz_OTG_Pink_OTG_Pink.png",
+        Blanc: "/images/OTG_Roz_OTG_Pink_White.png",
+        Noir: "/images/OTG_Roz_OTG_Pink_Black.png",
+        Jaune: "/images/OTG_Roz_OTG_Pink_Yellow.png",
+      },
       Blanc: {
-        Blanc: getImageUrl("Huit_Blanc", "Blanc_Blanc"),
+        Turquoise: "/images/OTG_Roz_White_Turquoise.png",
+        Rose: "/images/OTG_Roz_White_OTG_Pink.png",
+        Blanc: "/images/OTG_Roz_White_White.png",
+        Noir: "/images/OTG_Roz_White_Black.png",
+        Jaune: "/images/OTG_Roz_White_Yellow.png",
+      },
+      Noir: {
+        Turquoise: "/images/OTG_Roz_Black_Turquoise.png",
+        Rose: "/images/OTG_Roz_Black_OTG_Pink.png",
+        Blanc: "/images/OTG_Roz_Black_White.png",
+        Noir: "/images/OTG_Roz_Black_black.png",
+        Jaune: "/images/OTG_Roz_Black_yellow.png",
+      },
+      Jaune: {
+        Turquoise: "/images/OTG_Roz_Yellow_Turquoise.png",
+        Rose: "/images/OTG_Roz_Yellow_OTG_Pink.png",
+        Blanc: "/images/OTG_Roz_Yellow_White.png",
+        Noir: "/images/OTG_Roz_Yellow_black.png",
+        Jaune: "/images/OTG_Roz_Yellow_Yellow_2.png",
       },
     },
-    price: 60,
-    discountedPrice: 60,
-    description: "Montre minimaliste blanche pure",
-    productHandle: "huit-blanc-cadran",
   },
-];
+  {
+    slug: "blaue-acht",
+    name: "Blaue Acht",
+    color: "Bleu ciel",
+    tagline: "Huit en allemand",
+    image: "/images/Blaue_Acht_Light_Blue_Light_Blue.png",
+    allowedColors: ["Bleu ciel", "Vert pâle", "Blanc", "Noir"],
+    combos: {
+      "Bleu ciel": {
+        "Bleu ciel": "/images/Blaue_Acht_Light_Blue_Light_Blue.png",
+        "Vert pâle": "/images/Blaue_Acht_Light_Blue_Mint.png",
+        Blanc: "/images/Blaue_Acht_Light_Blue_White.png",
+        Noir: "/images/Blaue_Acht_Light_Blue_Black.png",
+      },
+      "Vert pâle": {
+        "Vert pâle": "/images/Blaue_Acht_Mint_Mint.png",
+        Blanc: "/images/Blaue_Acht_Mint_White.png",
+        Noir: "/images/Blaue_Acht_Mint_black.png",
+      },
+      Blanc: {
+        "Bleu ciel": "/images/Blaue_Acht_White_Light_Blue.png",
+        "Vert pâle": "/images/Blaue_Acht_White_Mint.png",
+        Blanc: "/images/Blaue_Acht_White_White (1).png",
+        Noir: "/images/Blaue_Acht_White_black.png",
+      },
+      Noir: {
+        "Bleu ciel": "/images/Blaue_Acht_Black_Light_Blue.png",
+        "Vert pâle": "/images/Blaue_Acht_Black_Mint.png",
+        Blanc: "/images/Blaue_Acht_Black_white.png",
+        Noir: "/images/Blaue_Acht_Black_Black.png",
+      },
+    },
+  },
+  {
+    slug: "orenji-hachi",
+    name: "Orenji Hachi",
+    color: "Orange",
+    tagline: "Huit en japonais",
+    allowedColors: ["Orange"],
+  },
+  {
+    slug: "huit-blanc",
+    name: "Huit Blanc",
+    color: "Blanc",
+    tagline: "Huit en français",
+    allowedColors: ["Blanc"],
+  },
+]
+
+export function getModelBySlug(slug: string): WatchModel | undefined {
+  return WATCH_MODELS.find((m) => m.slug === slug);
+}
+
+export function getModelByColor(color: string): WatchModel | undefined {
+  return WATCH_MODELS.find((m) => m.color === color);
+}
+
+export function findImageForColor(
+  images: Array<{ url: string; altText: string | null }>,
+  color: string,
+): { url: string; altText: string | null } | null {
+  const normalize = (s: string) =>
+    s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const target = normalize(color);
+  return (
+    images.find((img) => img.altText && normalize(img.altText).includes(target)) ??
+    images[0] ??
+    null
+  );
+}

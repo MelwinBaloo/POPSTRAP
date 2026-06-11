@@ -107,14 +107,14 @@ export const WATCH_MODELS: WatchModel[] = [
     color: "Noir",
     tagline: "Huit en espagnol",
     image: "/images/Ocho_Negro_Black_black.png",
-    allowedColors: ["Noir", "Blanc", "Bleu marine", "Bleu ciel", "Turquoise", "Vert", "Vert pâle", "Rose", "Rose foncé", "Rouge"],
+    allowedColors: ["Noir", "Blanc", "Bleu marine", "Bleu ciel", "Turquoise", "Vert foncé", "Vert pâle", "Rose", "Rose foncé", "Rouge"],
     combos: {
       Noir: {
         Noir: "/images/Ocho_Negro_Black_black.png",
         Blanc: "/images/Ocho_Negro_Black_white.png",
         "Bleu marine": "/images/Ocho_Negro_Black_blue.png",
         "Bleu ciel": "/images/Ocho_Negro_Black_bluelight.png",
-        Vert: "/images/Ocho_Negro_Black_green.png",
+        "Vert foncé": "/images/Ocho_Negro_Black_green.png",
         "Vert pâle": "/images/Ocho_Negro_Black_mint.png",
         Rose: "/images/Ocho_Negro_Black_rose.png",
         Rouge: "/images/Ocho_Negro_Black_RED.png",
@@ -125,7 +125,7 @@ export const WATCH_MODELS: WatchModel[] = [
         "Bleu marine": "/images/Ocho_Negro_White_Navy_Blue.png",
         "Bleu ciel": "/images/Ocho_Negro_White_Light_Blue.png",
         Turquoise: "/images/Ocho_Negro_White_Turquoise.png",
-        Vert: "/images/Ocho_Negro_White_Green.png",
+        "Vert foncé": "/images/Ocho_Negro_White_Green.png",
         "Vert pâle": "/images/Ocho_Negro_White_Mint.png",
         Rose: "/images/Ocho_Negro_White_Pink.png",
         "Rose foncé": "/images/Ocho_Negro_White_Dark_Pink.png",
@@ -140,10 +140,10 @@ export const WATCH_MODELS: WatchModel[] = [
         Blanc: "/images/Ocho_Negro_Light_Blue_White.png",
         "Bleu ciel": "/images/Ocho_Negro_Light_Blue_Light_Blue.png",
       },
-      Vert: {
+      "Vert foncé": {
         Noir: "/images/Ocho_Negro_Green_Black.png",
         Blanc: "/images/Ocho_Negro_Green_White.png",
-        Vert: "/images/Ocho_Negro_Green_Green.png",
+        "Vert foncé": "/images/Ocho_Negro_Green_Green.png",
       },
       "Vert pâle": {
         Noir: "/images/Ocho_Negro_Mint_Black.png",
@@ -271,12 +271,12 @@ export const WATCH_MODELS: WatchModel[] = [
     color: "Blanc",
     tagline: "Huit en français",
     image: "/images/Huit_Blanc_White_White.png",
-    allowedColors: ["Noir", "Rose foncé", "Vert", "Bleu ciel", "Vert pâle", "Bleu marine", "Rose", "Blanc"],
+    allowedColors: ["Noir", "Rose foncé", "Vert foncé", "Bleu ciel", "Vert pâle", "Bleu marine", "Rose", "Blanc"],
     combos: {
       Noir: {
         Noir: "/images/Huit_Blanc_Black_Black.png",
         "Rose foncé": "/images/Huit_Blanc_Black_Dark_Pink.png",
-        Vert: "/images/Huit_Blanc_Black_Green.png",
+        "Vert foncé": "/images/Huit_Blanc_Black_Green.png",
         "Bleu ciel": "/images/Huit_Blanc_Black_Light_Blue.png",
         "Vert pâle": "/images/Huit_Blanc_Black_Mint.png",
         "Bleu marine": "/images/Huit_Blanc_Black_Navy_Blue.png",
@@ -288,9 +288,9 @@ export const WATCH_MODELS: WatchModel[] = [
         "Rose foncé": "/images/Huit_Blanc_Dark_Pink_Dark_Pink.png",
         Blanc: "/images/Huit_Blanc_Dark_Pink_White.png",
       },
-      Vert: {
+      "Vert foncé": {
         Noir: "/images/Huit_Blanc_Green_Black.png",
-        Vert: "/images/Huit_Blanc_Green_Green.png",
+        "Vert foncé": "/images/Huit_Blanc_Green_Green.png",
         Blanc: "/images/Huit_Blanc_Green_White.png",
       },
       "Bleu ciel": {
@@ -315,7 +315,7 @@ export const WATCH_MODELS: WatchModel[] = [
       Blanc: {
         Noir: "/images/Huit_Blanc_White_Black.png",
         "Rose foncé": "/images/Huit_Blanc_White_Dark_Pink.png",
-        Vert: "/images/Huit_Blanc_White_Green.png",
+        "Vert foncé": "/images/Huit_Blanc_White_Green.png",
         "Bleu ciel": "/images/Huit_Blanc_White_Light_blue.png",
         "Bleu marine": "/images/Huit_Blanc_White_Navy_Blue.png",
         Rose: "/images/Huit_Blanc_White_Pink.png",

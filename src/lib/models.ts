@@ -79,24 +79,24 @@ export const WATCH_MODELS: WatchModel[] = [
   {
     slug: "green-eight",
     name: "Green Eight",
-    color: "Vert",
+    color: "Vert foncé",
     tagline: "Huit en anglais",
     image: "/images/Green_Eight_Green_Green.png",
-    allowedColors: ["Noir", "Vert", "Blanc"],
+    allowedColors: ["Noir", "Vert foncé", "Blanc"],
     combos: {
       Noir: {
         Noir: "/images/Green_Eight_Black_Black.png",
-        Vert: "/images/Green_Eight_Black_Green.png",
+        "Vert foncé": "/images/Green_Eight_Black_Green.png",
         Blanc: "/images/Green_Eight_Black_White.png",
       },
-      Vert: {
+      "Vert foncé": {
         Noir: "/images/Green_Eight_Green_Black.png",
-        Vert: "/images/Green_Eight_Green_Green.png",
+        "Vert foncé": "/images/Green_Eight_Green_Green.png",
         Blanc: "/images/Green_Eight_Green_White.png",
       },
       Blanc: {
         Noir: "/images/Green_Eight_White_Black.png",
-        Vert: "/images/Green_Eight_White_Green.png",
+        "Vert foncé": "/images/Green_Eight_White_Green.png",
         Blanc: "/images/Green_Eight_White_White.png",
       },
     },

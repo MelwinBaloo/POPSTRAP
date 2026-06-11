@@ -96,6 +96,7 @@ function ConfiguratorPage() {
   const addItem = useCartStore((s) => s.addItem);
   const isCartLoading = useCartStore((s) => s.isLoading);
   const [added, setAdded] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<{ url: string; alt: string } | null>(null);
 
   const allowedColors = model?.allowedColors ?? DEFAULT_COLORS;
   const initialColor = model?.color ?? allowedColors[0];
@@ -103,13 +104,15 @@ function ConfiguratorPage() {
   const [bracelet, setBracelet] = useState<PartState>({ include: true, color: initialColor });
 
   const byType = useMemo(() => {
-    const map: Record<PartKey, ShopifyProductNode | undefined> = {
+    const map: Record<PartKey, ShopifyProductNode | undefined> & { set?: ShopifyProductNode } = {
       cadran: undefined,
       bracelet: undefined,
+      set: undefined,
     };
     for (const edge of products) {
       const t = edge.node.productType.toLowerCase();
-      if (t.includes("cadran")) map.cadran = edge.node;
+      if (t.includes("set")) map.set = edge.node;
+      else if (t.includes("cadran")) map.cadran = edge.node;
       else if (t.includes("bracelet")) map.bracelet = edge.node;
     }
     return map;
@@ -132,6 +135,7 @@ function ConfiguratorPage() {
 
   const cadranVariant = findVariant(byType.cadran, cadran.color);
   const braceletVariant = findVariant(byType.bracelet, bracelet.color);
+  const setVariant = findVariant(byType.set, cadran.color);
 
   const cadranImage = byType.cadran
     ? findImageForColor(byType.cadran.images.edges.map((e) => e.node), cadran.color)
@@ -142,38 +146,59 @@ function ConfiguratorPage() {
 
   const cadranPrice = cadranVariant ? parseFloat(cadranVariant.price.amount) : 0;
   const braceletPrice = braceletVariant ? parseFloat(braceletVariant.price.amount) : 0;
+  const setPrice = setVariant ? parseFloat(setVariant.price.amount) : 0;
   const currency = cadranVariant?.price.currencyCode ?? braceletVariant?.price.currencyCode ?? "EUR";
 
-  const total =
-    (cadran.include ? cadranPrice : 0) + (bracelet.include ? braceletPrice : 0);
+  // Quand cadran ET bracelet sont sélectionnés, on applique le prix du Set complet
+  const bothSelected = cadran.include && bracelet.include;
+  const useSetPrice = bothSelected && setVariant && cadran.color === bracelet.color;
+
+  const total = useSetPrice
+    ? setPrice
+    : (cadran.include ? cadranPrice : 0) + (bracelet.include ? braceletPrice : 0);
   const nothingSelected = !cadran.include && !bracelet.include;
   const canCheckout = !nothingSelected && (cadran.include ? !!cadranVariant : true) && (bracelet.include ? !!braceletVariant : true);
 
   const handleAdd = async () => {
     const tasks: Array<Promise<unknown>> = [];
-    if (cadran.include && byType.cadran && cadranVariant) {
+
+    // Si cadran + bracelet de même couleur → on ajoute le Set complet (prix réduit)
+    if (useSetPrice && byType.set && setVariant) {
       tasks.push(
         addItem({
-          product: { node: byType.cadran },
-          variantId: cadranVariant.id,
-          variantTitle: cadranVariant.title,
-          price: cadranVariant.price,
+          product: { node: byType.set },
+          variantId: setVariant.id,
+          variantTitle: setVariant.title,
+          price: setVariant.price,
           quantity: 1,
-          selectedOptions: cadranVariant.selectedOptions,
+          selectedOptions: setVariant.selectedOptions,
         }),
       );
-    }
-    if (bracelet.include && byType.bracelet && braceletVariant) {
-      tasks.push(
-        addItem({
-          product: { node: byType.bracelet },
-          variantId: braceletVariant.id,
-          variantTitle: braceletVariant.title,
-          price: braceletVariant.price,
-          quantity: 1,
-          selectedOptions: braceletVariant.selectedOptions,
-        }),
-      );
+    } else {
+      if (cadran.include && byType.cadran && cadranVariant) {
+        tasks.push(
+          addItem({
+            product: { node: byType.cadran },
+            variantId: cadranVariant.id,
+            variantTitle: cadranVariant.title,
+            price: cadranVariant.price,
+            quantity: 1,
+            selectedOptions: cadranVariant.selectedOptions,
+          }),
+        );
+      }
+      if (bracelet.include && byType.bracelet && braceletVariant) {
+        tasks.push(
+          addItem({
+            product: { node: byType.bracelet },
+            variantId: braceletVariant.id,
+            variantTitle: braceletVariant.title,
+            price: braceletVariant.price,
+            quantity: 1,
+            selectedOptions: braceletVariant.selectedOptions,
+          }),
+        );
+      }
     }
     if (tasks.length === 0) return;
     await Promise.all(tasks);
@@ -232,6 +257,7 @@ function ConfiguratorPage() {
               bracelet={bracelet}
               cadranImage={cadranImage}
               braceletImage={braceletImage}
+              onZoom={(url, alt) => setLightboxImage({ url, alt })}
             />
           </div>
 
@@ -316,6 +342,30 @@ function ConfiguratorPage() {
           </div>
         </div>
       </div>
+
+      {lightboxImage && (
+        <div
+          onClick={() => setLightboxImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxImage(null)}
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-2xl text-white transition-colors hover:bg-white/20"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+          <img
+            src={lightboxImage.url}
+            alt={lightboxImage.alt}
+            className="max-h-[90vh] max-w-[90vw] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       <Footer />
     </div>
@@ -445,6 +495,7 @@ function ConfiguratorPreview({
   bracelet,
   cadranImage,
   braceletImage,
+  onZoom,
 }: {
   isLoading: boolean;
   model: { slug?: string; combos?: Record<string, Record<string, string>> };
@@ -452,6 +503,7 @@ function ConfiguratorPreview({
   bracelet: PartState;
   cadranImage: { url: string; altText: string | null } | null;
   braceletImage: { url: string; altText: string | null } | null;
+  onZoom?: (url: string, alt: string) => void;
 }) {
   // 1) Combo set image (cadran + bracelet both selected) from per-model map
   let composedImage: string | undefined;
@@ -487,14 +539,21 @@ function ConfiguratorPreview({
       {isLoading ? (
         <div className="h-full w-full animate-pulse bg-muted" />
       ) : composedImage ? (
-        <img
-          key={composedImage}
-          src={composedImage}
-          alt={composedAlt}
-          decoding="async"
-          fetchPriority="high"
-          className="h-full w-full object-contain"
-        />
+        <button
+          type="button"
+          onClick={() => onZoom?.(composedImage!, composedAlt)}
+          className="group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          aria-label="Agrandir l'image"
+        >
+          <img
+            key={composedImage}
+            src={composedImage}
+            alt={composedAlt}
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+        </button>
       ) : (
         <div className="grid h-full grid-rows-2">
           <PartPreview

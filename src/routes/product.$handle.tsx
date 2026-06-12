@@ -178,26 +178,24 @@ function ProductPage() {
         <div className="mt-8 grid gap-12 md:grid-cols-2 md:items-start">
           {/* Visual */}
           <div className="md:sticky md:top-24">
-            <div className="aspect-square overflow-hidden rounded-3xl bg-background">
+            <div className="aspect-square overflow-hidden rounded-[2rem] bg-white">
               {customCadranImage ? (
                 <img
-                  key={customCadranImage}
                   src={customCadranImage}
-                  alt={`Cadran ${selectedColor}`}
+                  alt={`Cadran ${selectedColor ?? ""}`}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-full w-full object-contain p-6 transition-opacity duration-300"
+                  className="h-full w-full object-contain p-6"
                 />
               ) : displayImage ? (
                 <img
-                  key={displayImage.url}
                   src={shopifyImage(displayImage.url, 1200)}
                   srcSet={shopifySrcSet(displayImage.url, [600, 800, 1200, 1600])}
                   sizes="(max-width: 768px) 100vw, 600px"
                   alt={displayImage.altText ?? product.title}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-full w-full object-contain p-6 transition-opacity duration-300"
+                  className="h-full w-full object-contain p-6"
                 />
               ) : selectedColor ? (
                 <div

@@ -346,3 +346,48 @@ export function findImageForColor(
     null
   );
 }
+
+// ============================================================
+// Images de CADRAN SEUL (affichées quand seul le cadran est coché)
+// Chaque couleur peut avoir une version couronne 12h et/ou 15h
+// ============================================================
+export interface CadranSeulOption {
+  "12h"?: string;
+  "15h"?: string;
+}
+
+// slug du modèle -> couleur FR -> versions de couronne
+export const CADRAN_SEUL: Record<string, Record<string, CadranSeulOption>> = {
+  "otto-rosso": {
+    "Rose": { "12h": "/images/otto-rosso-pink.png" },
+    "Rose foncé": { "12h": "/images/otto-rosso-darkpink.png" },
+  },
+  "lan-ba": {
+    "Cyan": { "15h": "/images/lan-ba-blue.png" },
+    "Bleu marine": { "15h": "/images/lan-ba-darkblue.png" },
+  },
+  "green-eight": {
+    "Vert foncé": { "12h": "/images/green-eight.png" },
+  },
+  "ocho-negro": {
+    "Noir": { "12h": "/images/ocho-negro-black.png", "15h": "/images/ocho-black-crown-3.png" },
+  },
+  "otg-roz": {
+    "Turquoise": { "15h": "/images/otg-roz-bezel-turquoise.png" },
+  },
+  "blaue-acht": {
+    "Bleu ciel": { "12h": "/images/blaue-acht-lightblue.png" },
+    "Vert pâle": { "12h": "/images/blaue-acht-mint.png" },
+  },
+  "orenji-hachi": {
+    "Bleu marine": { "12h": "/images/orenji-hachi-navyblue.png" },
+  },
+  "huit-blanc": {
+    "Blanc": { "12h": "/images/huit-blanc-white.png", "15h": "/images/huit-blanc-white--crown-3.png" },
+  },
+};
+
+// Retourne les options couronne disponibles pour un cadran seul, ou null
+export function getCadranSeul(slug: string, color: string): CadranSeulOption | null {
+  return CADRAN_SEUL[slug]?.[color] ?? null;
+}

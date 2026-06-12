@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowLeft, Check, Loader2, Minus, Plus } from "lucide-react";
 import { fetchProductByHandle, formatPrice, getColorHex } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
+import { getCadranImages } from "@/lib/models";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ColorSwatch } from "@/components/ColorSwatch";
@@ -57,6 +58,7 @@ function ProductPage() {
 
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [crown, setCrown] = useState<"12h" | "15h">("12h");
   const addItem = useCartStore((s) => s.addItem);
   const isCartLoading = useCartStore((s) => s.isLoading);
   const [added, setAdded] = useState(false);
@@ -100,6 +102,18 @@ function ProductPage() {
   const displayPrice = selectedVariant?.price ?? product.priceRange.minVariantPrice;
   const normalize = (s: string) =>
     s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // Est-ce un produit Cadran ? (pour utiliser nos images isolées + sélecteur couronne)
+  const isCadran = normalize(product.productType).includes("cadran");
+  const cadranImages = isCadran && selectedColor ? getCadranImages(selectedColor) : null;
+  const availableCrowns = cadranImages
+    ? (["12h", "15h"] as const).filter((c) => cadranImages[c])
+    : [];
+  // Notre image de cadran (selon couronne choisie, avec fallback)
+  const customCadranImage = cadranImages
+    ? cadranImages[crown] ?? cadranImages["12h"] ?? cadranImages["15h"] ?? null
+    : null;
+
   const colorImage = selectedColor
     ? product.images.edges.find(
         (e) => e.node.altText && normalize(e.node.altText).includes(normalize(selectedColor)),
@@ -137,7 +151,16 @@ function ProductPage() {
           {/* Visual */}
           <div className="md:sticky md:top-24">
             <div className="aspect-square overflow-hidden rounded-3xl bg-background">
-              {displayImage ? (
+              {customCadranImage ? (
+                <img
+                  key={customCadranImage}
+                  src={customCadranImage}
+                  alt={`Cadran ${selectedColor}`}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-full w-full object-contain p-6 transition-opacity duration-300"
+                />
+              ) : displayImage ? (
                 <img
                   key={displayImage.url}
                   src={shopifyImage(displayImage.url, 1200)}
@@ -209,6 +232,29 @@ function ProductPage() {
                       size="lg"
                       onClick={() => setSelectedColor(c)}
                     />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Sélecteur de position de couronne (cadran avec 2 versions) */}
+            {availableCrowns.length > 1 && (
+              <div className="space-y-3 pt-2">
+                <p className="text-sm font-medium">Position de la couronne</p>
+                <div className="flex gap-2">
+                  {availableCrowns.map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setCrown(c)}
+                      className={`flex-1 rounded-full border px-4 py-2.5 text-sm font-medium transition-colors ${
+                        crown === c
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border bg-background text-foreground hover:border-foreground/40"
+                      }`}
+                    >
+                      {c === "12h" ? "Couronne à 12h" : "Couronne à 15h"}
+                    </button>
                   ))}
                 </div>
               </div>

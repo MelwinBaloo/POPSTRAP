@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { ArrowLeft, Check, Loader2 } from "lucide-react";
 import { fetchAllProducts, formatPrice, getColorHex, type ShopifyProductNode } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
@@ -102,6 +102,27 @@ function ConfiguratorPage() {
   const initialColor = model?.color ?? allowedColors[0];
   const [cadran, setCadran] = useState<PartState>({ include: true, color: initialColor });
   const [bracelet, setBracelet] = useState<PartState>({ include: true, color: initialColor });
+
+  // Précharge toutes les images de combinaisons du modèle pour des changements instantanés
+  useEffect(() => {
+    if (!model?.combos) return;
+    const urls = new Set<string>();
+    for (const inner of Object.values(model.combos)) {
+      for (const url of Object.values(inner)) {
+        if (url) urls.add(url);
+      }
+    }
+    if (model.image) urls.add(model.image);
+    const imgs: HTMLImageElement[] = [];
+    urls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+      imgs.push(img);
+    });
+    return () => {
+      imgs.forEach((img) => (img.src = ""));
+    };
+  }, [model]);
 
   const byType = useMemo(() => {
     const map: Record<PartKey, ShopifyProductNode | undefined> & { set?: ShopifyProductNode } = {

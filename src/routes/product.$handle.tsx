@@ -1,10 +1,10 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Check, Loader2, Minus, Plus } from "lucide-react";
 import { fetchProductByHandle, formatPrice, getColorHex } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
-import { getCadranImages } from "@/lib/models";
+import { getCadranImages, CADRAN_IMAGES } from "@/lib/models";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ColorSwatch } from "@/components/ColorSwatch";
@@ -62,6 +62,30 @@ function ProductPage() {
   const addItem = useCartStore((s) => s.addItem);
   const isCartLoading = useCartStore((s) => s.isLoading);
   const [added, setAdded] = useState(false);
+
+  // Précharge toutes les images de cadran pour des changements de couleur instantanés
+  useEffect(() => {
+    const productType = product?.productType ?? "";
+    const isCadranProduct = productType
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .includes("cadran");
+    if (!isCadranProduct) return;
+    const imgs: HTMLImageElement[] = [];
+    for (const crowns of Object.values(CADRAN_IMAGES)) {
+      for (const url of Object.values(crowns)) {
+        if (url) {
+          const img = new Image();
+          img.src = url;
+          imgs.push(img);
+        }
+      }
+    }
+    return () => {
+      imgs.forEach((img) => (img.src = ""));
+    };
+  }, [product]);
 
   if (isLoading) {
     return (

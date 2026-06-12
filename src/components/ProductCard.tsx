@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { getColorHex, formatPrice, type ShopifyProduct } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
+import { CADRAN_IMAGES } from "@/lib/models";
 import { ArrowRight } from "lucide-react";
 
 interface ProductCardProps {
@@ -14,6 +15,14 @@ export function ProductCard({ product }: ProductCardProps) {
   const price = p.priceRange.minVariantPrice;
   const firstImage = p.images.edges[0]?.node;
 
+  // Pour le produit Cadran, utiliser notre image de cadran isolé (fond blanc) comme vignette
+  const normalize = (s: string) =>
+    s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const isCadran = normalize(p.productType).includes("cadran");
+  const customCadranThumb = isCadran
+    ? CADRAN_IMAGES["Rose"]?.["12h"] ?? Object.values(CADRAN_IMAGES)[0]?.["12h"] ?? null
+    : null;
+
   return (
     <Link
       to="/product/$handle"
@@ -21,7 +30,15 @@ export function ProductCard({ product }: ProductCardProps) {
       className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:shadow-card"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-white">
-        {firstImage ? (
+        {customCadranThumb ? (
+          <img
+            src={customCadranThumb}
+            alt={p.title}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : firstImage ? (
           <img
             src={shopifyImage(firstImage.url, 800, 600)}
             srcSet={shopifySrcSet(firstImage.url, [400, 600, 800, 1200], (w) => Math.round((w * 3) / 4))}

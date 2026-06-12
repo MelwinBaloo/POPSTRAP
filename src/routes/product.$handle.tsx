@@ -134,9 +134,13 @@ function ProductPage() {
     ? (["12h", "15h"] as const).filter((c) => cadranImages[c])
     : [];
   // Notre image de cadran (selon couronne choisie, avec fallback)
+  // Si aucune couleur choisie, on affiche le cadran rose par défaut
+  const defaultCadranImage = isCadran
+    ? CADRAN_IMAGES["Rose"]?.["12h"] ?? Object.values(CADRAN_IMAGES)[0]?.["12h"] ?? null
+    : null;
   const customCadranImage = cadranImages
     ? cadranImages[crown] ?? cadranImages["12h"] ?? cadranImages["15h"] ?? null
-    : null;
+    : defaultCadranImage;
 
   const colorImage = selectedColor
     ? product.images.edges.find(

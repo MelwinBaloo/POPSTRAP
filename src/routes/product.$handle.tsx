@@ -5,6 +5,7 @@ import { ArrowLeft, Check, Loader2, Minus, Plus } from "lucide-react";
 import { fetchProductByHandle, formatPrice, getColorHex } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
 import { getCadranImages, CADRAN_IMAGES } from "@/lib/models";
+import { SmoothImage } from "@/components/SmoothImage";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ColorSwatch } from "@/components/ColorSwatch";
@@ -180,11 +181,9 @@ function ProductPage() {
           <div className="md:sticky md:top-24">
             <div className="aspect-square overflow-hidden rounded-[2rem] bg-white">
               {customCadranImage ? (
-                <img
+                <SmoothImage
                   src={customCadranImage}
                   alt={`Cadran ${selectedColor ?? ""}`}
-                  fetchPriority="high"
-                  decoding="async"
                   className="h-full w-full object-contain p-6"
                 />
               ) : displayImage ? (

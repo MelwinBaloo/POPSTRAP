@@ -5,6 +5,7 @@ import { ArrowLeft, Check, Loader2 } from "lucide-react";
 import { fetchAllProducts, formatPrice, getColorHex, type ShopifyProductNode } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
 import { getModelBySlug, findImageForColor, getModelByColor, WATCH_MODELS } from "@/lib/models";
+import { SmoothImage } from "@/components/SmoothImage";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ColorSwatch } from "@/components/ColorSwatch";
@@ -556,7 +557,7 @@ function ConfiguratorPreview({
   }
 
   return (
-    <div className="aspect-square overflow-hidden rounded-3xl" style={{ backgroundColor: PREVIEW_BACKGROUND }}>
+    <div className="aspect-square overflow-hidden rounded-[2rem]" style={{ backgroundColor: PREVIEW_BACKGROUND }}>
       {isLoading ? (
         <div className="h-full w-full animate-pulse bg-muted" />
       ) : composedImage ? (
@@ -566,12 +567,9 @@ function ConfiguratorPreview({
           className="group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
           aria-label="Agrandir l'image"
         >
-          <img
-            key={composedImage}
+          <SmoothImage
             src={composedImage}
             alt={composedAlt}
-            decoding="async"
-            fetchPriority="high"
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </button>

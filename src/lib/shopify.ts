@@ -1,7 +1,7 @@
 export const SHOPIFY_API_VERSION = "2025-07";
-export const SHOPIFY_STORE_PERMANENT_DOMAIN = "bpvch7-ws.myshopify.com";
+export const SHOPIFY_STORE_PERMANENT_DOMAIN = "popstrap-10.myshopify.com";
 export const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-export const SHOPIFY_STOREFRONT_TOKEN = "92cd0c0cf82f5e860cd1908ed4ed2ecb";
+export const SHOPIFY_STOREFRONT_TOKEN = "a59b99696960a6d399cbaa64b0c8a2ee";
 
 export interface ShopifyProductNode {
   id: string;

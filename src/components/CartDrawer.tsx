@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice, getColorHex } from "@/lib/shopify";
 import { shopifyImage } from "@/lib/shopify-image";
+import { getCartImage } from "@/lib/models";
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false);
@@ -58,21 +59,34 @@ export function CartDrawer() {
               <ul className="space-y-4">
                 {items.map((item) => {
                   const color = item.selectedOptions.find((o) => o.name === "Couleur")?.value;
-                  const img = item.product.node.images.edges[0]?.node;
+                  const productType = item.product.node.productType ?? "";
+                  // Notre image (cadran/bracelet/set) selon le type + couleur
+                  const customImg = color ? getCartImage(productType, color) : null;
+                  const shopifyImg = item.product.node.images.edges[0]?.node;
                   return (
                     <li
                       key={item.variantId}
                       className="flex gap-3 rounded-xl border border-border bg-card p-3"
                     >
-                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-surface">
-                        {img ? (
+                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-white">
+                        {customImg ? (
                           <img
-                            src={shopifyImage(img.url, 160, 160)}
+                            src={customImg}
                             width={80}
                             height={80}
                             loading="lazy"
                             decoding="async"
-                            alt={img.altText ?? item.product.node.title}
+                            alt={item.product.node.title}
+                            className="h-full w-full object-contain"
+                          />
+                        ) : shopifyImg ? (
+                          <img
+                            src={shopifyImage(shopifyImg.url, 160, 160)}
+                            width={80}
+                            height={80}
+                            loading="lazy"
+                            decoding="async"
+                            alt={shopifyImg.altText ?? item.product.node.title}
                             className="h-full w-full object-cover"
                           />
                         ) : (

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, Check, Loader2, Minus, Plus } from "lucide-react";
 import { fetchProductByHandle, formatPrice, getColorHex } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
-import { getCadranImages, CADRAN_IMAGES } from "@/lib/models";
+import { getCadranImages, CADRAN_IMAGES, getBraceletImage, BRACELET_IMAGES } from "@/lib/models";
 import { SmoothImage } from "@/components/SmoothImage";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -64,24 +64,26 @@ function ProductPage() {
   const isCartLoading = useCartStore((s) => s.isLoading);
   const [added, setAdded] = useState(false);
 
-  // Précharge toutes les images de cadran pour des changements de couleur instantanés
+  // Précharge toutes les images de cadran/bracelet pour des changements instantanés
   useEffect(() => {
-    const productType = product?.productType ?? "";
-    const isCadranProduct = productType
+    const productType = (product?.productType ?? "")
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .includes("cadran");
-    if (!isCadranProduct) return;
+      .replace(/[\u0300-\u036f]/g, "");
     const imgs: HTMLImageElement[] = [];
-    for (const crowns of Object.values(CADRAN_IMAGES)) {
-      for (const url of Object.values(crowns)) {
-        if (url) {
-          const img = new Image();
-          img.src = url;
-          imgs.push(img);
-        }
+    const preload = (url: string) => {
+      if (!url) return;
+      const img = new Image();
+      img.src = url;
+      imgs.push(img);
+    };
+    if (productType.includes("cadran")) {
+      for (const crowns of Object.values(CADRAN_IMAGES)) {
+        for (const url of Object.values(crowns)) preload(url);
       }
+    }
+    if (productType.includes("bracelet")) {
+      for (const url of Object.values(BRACELET_IMAGES)) preload(url);
     }
     return () => {
       imgs.forEach((img) => (img.src = ""));
@@ -143,6 +145,17 @@ function ProductPage() {
     ? cadranImages[crown] ?? cadranImages["12h"] ?? cadranImages["15h"] ?? null
     : defaultCadranImage;
 
+  // Est-ce un produit Bracelet ? (nos images de bracelet par couleur, sans couronne)
+  const isBracelet = normalize(product.productType).includes("bracelet");
+  const defaultBraceletImage = isBracelet
+    ? BRACELET_IMAGES["Rose"] ?? Object.values(BRACELET_IMAGES)[0] ?? null
+    : null;
+  const customBraceletImage = isBracelet
+    ? (selectedColor ? getBraceletImage(selectedColor) : null) ?? defaultBraceletImage
+    : null;
+  // Image custom finale (cadran OU bracelet)
+  const customImage = customCadranImage ?? customBraceletImage;
+
   const colorImage = selectedColor
     ? product.images.edges.find(
         (e) => e.node.altText && normalize(e.node.altText).includes(normalize(selectedColor)),
@@ -180,10 +193,10 @@ function ProductPage() {
           {/* Visual */}
           <div className="md:sticky md:top-24">
             <div className="aspect-square overflow-hidden rounded-[2rem] bg-white">
-              {customCadranImage ? (
+              {customImage ? (
                 <SmoothImage
-                  src={customCadranImage}
-                  alt={`Cadran ${selectedColor ?? ""}`}
+                  src={customImage}
+                  alt={`${product.title} ${selectedColor ?? ""}`}
                   className="h-full w-full object-contain p-6"
                 />
               ) : displayImage ? (

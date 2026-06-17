@@ -125,6 +125,17 @@ function ConfiguratorPage() {
     };
   }, [model]);
 
+  // Si la couleur du bracelet n'a pas de combo avec le cadran choisi, basculer sur une couleur valide
+  useEffect(() => {
+    if (!model?.combos) return;
+    if (!cadran.include || !bracelet.include) return;
+    const validBracelets = Object.keys(model.combos[cadran.color] ?? {});
+    if (validBracelets.length === 0) return;
+    if (!validBracelets.includes(bracelet.color)) {
+      setBracelet((b) => ({ ...b, color: validBracelets[0] }));
+    }
+  }, [cadran.color, cadran.include, bracelet.include, model]);
+
   const byType = useMemo(() => {
     const map: Record<PartKey, ShopifyProductNode | undefined> & { set?: ShopifyProductNode } = {
       cadran: undefined,

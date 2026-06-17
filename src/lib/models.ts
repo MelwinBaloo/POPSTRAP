@@ -373,3 +373,24 @@ export const CADRAN_IMAGES: Record<string, CrownImages> = {
 export function getCadranImages(color: string): CrownImages | null {
   return CADRAN_IMAGES[color] ?? null;
 }
+
+// ============================================================
+// Images de BRACELET par COULEUR (page produit Bracelet)
+// Pas de notion de couronne pour les bracelets
+// ============================================================
+export const BRACELET_IMAGES: Record<string, string> = {
+  "Rose": "/images/Bracelet/otto-rosso-light-strap-pink.webp",
+  "Rouge": "/images/Bracelet/otto-rosso-strap-darkpink.webp",
+  "Cyan": "/images/Bracelet/lan-ba-strap-drakblue.webp",
+  "Vert pâle": "/images/Bracelet/blaue-acht-strap-mint.webp",
+  "Vert foncé": "/images/Bracelet/green-eight-strap.webp",
+  "Turquoise": "/images/Bracelet/otg-roz-turquoise-strap.webp",
+  "Noir": "/images/Bracelet/ocho-negro-strap-black.webp",
+  "Bleu marine": "/images/Bracelet/orenji-hachi-strap-navyblue.webp",
+  "Bleu ciel": "/images/Bracelet/lan-ba-blue-strap.webp",
+  "Blanc": "/images/Bracelet/huit-blanc-strap-white.webp",
+};
+
+export function getBraceletImage(color: string): string | null {
+  return BRACELET_IMAGES[color] ?? null;
+}

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { getColorHex, formatPrice, type ShopifyProduct } from "@/lib/shopify";
 import { shopifyImage, shopifySrcSet } from "@/lib/shopify-image";
-import { CADRAN_IMAGES } from "@/lib/models";
+import { CADRAN_IMAGES, BRACELET_IMAGES } from "@/lib/models";
 import { ArrowRight } from "lucide-react";
 
 interface ProductCardProps {
@@ -15,13 +15,16 @@ export function ProductCard({ product }: ProductCardProps) {
   const price = p.priceRange.minVariantPrice;
   const firstImage = p.images.edges[0]?.node;
 
-  // Pour le produit Cadran, utiliser notre image de cadran isolé (fond blanc) comme vignette
+  // Pour les produits Cadran/Bracelet, utiliser nos images (fond blanc) comme vignette
   const normalize = (s: string) =>
     s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   const isCadran = normalize(p.productType).includes("cadran");
+  const isBracelet = normalize(p.productType).includes("bracelet");
   const customCadranThumb = isCadran
     ? CADRAN_IMAGES["Rose"]?.["12h"] ?? Object.values(CADRAN_IMAGES)[0]?.["12h"] ?? null
-    : null;
+    : isBracelet
+      ? BRACELET_IMAGES["Rose"] ?? Object.values(BRACELET_IMAGES)[0] ?? null
+      : null;
 
   return (
     <Link

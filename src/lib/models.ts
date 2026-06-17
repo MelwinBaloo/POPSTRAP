@@ -394,3 +394,34 @@ export const BRACELET_IMAGES: Record<string, string> = {
 export function getBraceletImage(color: string): string | null {
   return BRACELET_IMAGES[color] ?? null;
 }
+
+// ============================================================
+// Image pour le PANIER selon le type de produit + couleur
+// ============================================================
+export function getCartImage(productType: string, color: string): string | null {
+  const t = productType.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (t.includes("cadran")) {
+    const c = getCadranImages(color);
+    return c?.["12h"] ?? c?.["15h"] ?? null;
+  }
+  if (t.includes("bracelet")) {
+    return getBraceletImage(color);
+  }
+  if (t.includes("set")) {
+    // Montre complète : on cherche un modèle ayant une combo couleur/couleur
+    for (const model of WATCH_MODELS) {
+      const img = model.combos?.[color]?.[color];
+      if (img) return img;
+    }
+    // sinon, n'importe quelle combo de cette couleur en cadran
+    for (const model of WATCH_MODELS) {
+      const inner = model.combos?.[color];
+      if (inner) {
+        const first = Object.values(inner)[0];
+        if (first) return first;
+      }
+    }
+    return null;
+  }
+  return null;
+}

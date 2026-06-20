@@ -9,15 +9,15 @@ export function Footer() {
               <span className="text-lg font-semibold tracking-tight">ROYALPOPS</span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Cadrans et bracelets premium conçus pour la Swatch × Audemars Piguet.
+              Kits complets (coque + bracelet) en silicone premium pour la Swatch × Audemars Piguet.
             </p>
           </div>
           <div>
             <h4 className="text-sm font-semibold">Boutique</h4>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              <li><a href="/#produits" className="hover:text-foreground">Cadrans</a></li>
-              <li><a href="/#produits" className="hover:text-foreground">Bracelets</a></li>
-              <li><a href="/#produits" className="hover:text-foreground">Sets complets</a></li>
+              <li><a href="/#modeles" className="hover:text-foreground">Nos coloris</a></li>
+              <li><a href="/#modeles" className="hover:text-foreground">Kit complet</a></li>
+              <li><a href="/#compatibilite" className="hover:text-foreground">Compatibilité</a></li>
             </ul>
           </div>
           <div>
@@ -30,7 +30,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} PopStrap. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} ROYALPOPS. Tous droits réservés.</p>
           <p>Produit non affilié à Swatch ni Audemars Piguet.</p>
         </div>
       </div>

@@ -60,7 +60,7 @@ function KitPage() {
   const { slug } = Route.useParams();
   const initialKit = getKitBySlug(slug) ?? KIT_COLORS[0];
 
-  const [selectedColor, setSelectedColor] = useState(initialKit.name);
+  const selectedColor = initialKit.name;
   const [activeImage, setActiveImage] = useState(initialKit.image);
   const [added, setAdded] = useState(false);
   const [lightbox, setLightbox] = useState(false);
@@ -193,37 +193,6 @@ function KitPage() {
                   {formatPrice(price.amount, price.currencyCode)}
                 </p>
               )}
-            </div>
-
-            {/* Sélecteur de couleur */}
-            <div className="rounded-2xl border border-border bg-surface p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">Couleur</span>
-                <span className="text-sm text-muted-foreground">{currentKit.name}</span>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {KIT_COLORS.map((k) => (
-                  <button
-                    key={k.slug}
-                    type="button"
-                    onClick={() => setSelectedColor(k.name)}
-                    aria-label={k.name}
-                    className={`relative h-10 w-10 rounded-full border shadow-sm transition-transform hover:scale-110 ${
-                      selectedColor === k.name
-                        ? "ring-2 ring-foreground ring-offset-2 ring-offset-surface"
-                        : "border-border"
-                    }`}
-                    style={{ backgroundColor: k.hex }}
-                  >
-                    {selectedColor === k.name && (
-                      <Check
-                        className="absolute inset-0 m-auto h-4 w-4"
-                        style={{ color: k.hex === "#f5f5f5" || k.hex === "#f2d21b" ? "#1a1a1a" : "#ffffff" }}
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Bouton ajouter */}

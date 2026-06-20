@@ -8,7 +8,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
-import { KIT_COLORS, getKitBySlug, KIT_PRODUCT_HANDLE } from "@/lib/kits";
+import { KIT_COLORS, getKitBySlug, getKitGallery, KIT_PRODUCT_HANDLE } from "@/lib/kits";
 
 export const Route = createFileRoute("/configurer/$slug")({
   head: ({ params }) => {
@@ -61,6 +61,7 @@ function KitPage() {
   const initialKit = getKitBySlug(slug) ?? KIT_COLORS[0];
 
   const [selectedColor, setSelectedColor] = useState(initialKit.name);
+  const [activeImage, setActiveImage] = useState(initialKit.image);
   const [added, setAdded] = useState(false);
   const [lightbox, setLightbox] = useState(false);
 
@@ -73,13 +74,15 @@ function KitPage() {
     queryFn: () => fetchProductByHandle(KIT_PRODUCT_HANDLE),
   });
 
-  // Précharge toutes les images de kit pour des changements instantanés
+  // Précharge toutes les images de kit (galerie complète) pour des changements instantanés
   useEffect(() => {
     const imgs: HTMLImageElement[] = [];
     for (const k of KIT_COLORS) {
-      const img = new Image();
-      img.src = k.image;
-      imgs.push(img);
+      for (const url of getKitGallery(k)) {
+        const img = new Image();
+        img.src = url;
+        imgs.push(img);
+      }
     }
     return () => {
       imgs.forEach((img) => (img.src = ""));
@@ -87,6 +90,12 @@ function KitPage() {
   }, []);
 
   const currentKit = KIT_COLORS.find((k) => k.name === selectedColor) ?? initialKit;
+  const gallery = getKitGallery(currentKit);
+
+  // Quand on change de couleur, revenir à l'image principale
+  useEffect(() => {
+    setActiveImage(currentKit.image);
+  }, [currentKit.image]);
 
   const variant = product?.variants.edges.find(
     (v) => v.node.selectedOptions.find((o) => o.name === "Couleur")?.value === selectedColor,
@@ -122,7 +131,7 @@ function KitPage() {
         </Link>
 
         <div className="mt-6 grid gap-8 md:mt-8 md:grid-cols-[1.1fr_1fr] md:items-start md:gap-12">
-          {/* Image du kit */}
+          {/* Galerie du kit */}
           <div className="md:sticky md:top-24">
             <div
               className="aspect-square overflow-hidden rounded-[2rem]"
@@ -135,12 +144,38 @@ function KitPage() {
                 aria-label="Agrandir l'image"
               >
                 <SmoothImage
-                  src={currentKit.image}
+                  src={activeImage}
                   alt={`Kit ${currentKit.name}`}
                   className="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-105"
                 />
               </button>
             </div>
+
+            {/* Miniatures */}
+            {gallery.length > 1 && (
+              <div className="mt-3 flex gap-3">
+                {gallery.map((img) => (
+                  <button
+                    key={img}
+                    type="button"
+                    onClick={() => setActiveImage(img)}
+                    className={`h-20 w-20 overflow-hidden rounded-xl border bg-white transition-all ${
+                      activeImage === img
+                        ? "border-foreground ring-1 ring-foreground"
+                        : "border-border hover:border-foreground/40"
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-contain p-1.5"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Configuration */}
@@ -247,7 +282,7 @@ function KitPage() {
             ×
           </button>
           <img
-            src={currentKit.image}
+            src={activeImage}
             alt={`Kit ${currentKit.name}`}
             className="max-h-[90vh] max-w-[90vw] object-contain"
             onClick={(e) => e.stopPropagation()}

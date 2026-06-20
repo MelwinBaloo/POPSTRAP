@@ -13,10 +13,10 @@ export function Header() {
         <nav className="hidden items-center gap-8 md:flex">
           <Link
             to="/"
-            hash="produits"
+            hash="modeles"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            Produits
+            Coloris
           </Link>
           <Link
             to="/"

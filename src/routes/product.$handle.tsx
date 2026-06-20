@@ -15,7 +15,7 @@ import { useCartStore } from "@/stores/cartStore";
 export const Route = createFileRoute("/product/$handle")({
   head: ({ params }) => ({
     meta: [
-      { title: `${params.handle.replace(/-/g, " ")} — POPSTRAP` },
+      { title: `${params.handle.replace(/-/g, " ")} — ROYALPOPS` },
       {
         name: "description",
         content: "Personnalisez votre Swatch × AP avec un produit PopStrap.",
@@ -165,6 +165,7 @@ function ProductPage() {
 
   const handleAdd = async () => {
     if (!selectedVariant) return;
+    if (!selectedVariant.availableForSale) return;
     await addItem({
       product: { node: product },
       variantId: selectedVariant.id,
@@ -248,6 +249,11 @@ function ProductPage() {
               <p className="mt-3 text-2xl font-semibold">
                 {formatPrice(displayPrice.amount, displayPrice.currencyCode)}
               </p>
+              {selectedVariant && !selectedVariant.availableForSale && (
+                <p className="mt-2 inline-block rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
+                  Épuisé
+                </p>
+              )}
             </div>
 
             <p className="text-muted-foreground">{product.description}</p>
@@ -324,7 +330,7 @@ function ProductPage() {
             <Button
               size="lg"
               onClick={handleAdd}
-              disabled={!selectedColor || isCartLoading}
+              disabled={!selectedColor || isCartLoading || (!!selectedVariant && !selectedVariant.availableForSale)}
               className="h-12 w-full rounded-full text-sm font-semibold"
             >
               {isCartLoading ? (
@@ -335,6 +341,8 @@ function ProductPage() {
                 </>
               ) : !selectedColor ? (
                 "Choisir une couleur"
+              ) : selectedVariant && !selectedVariant.availableForSale ? (
+                "Épuisé"
               ) : (
                 "Ajouter au panier"
               )}
@@ -345,7 +353,7 @@ function ProductPage() {
                 <Check className="h-4 w-4 text-accent" /> Compatible Swatch × Audemars Piguet uniquement
               </p>
               <p className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-accent" /> Expédition sous 48h
+                <Check className="h-4 w-4 text-accent" /> Livraison sous 10-20 jours
               </p>
               <p className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-accent" /> Retours acceptés sous 14 jours

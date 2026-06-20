@@ -13,10 +13,10 @@ import { KIT_COLORS, getKitBySlug, getKitGallery, KIT_PRODUCT_HANDLE } from "@/l
 export const Route = createFileRoute("/configurer/$slug")({
   head: ({ params }) => {
     const kit = getKitBySlug(params.slug);
-    const title = kit ? `Kit ${kit.name} — POPSTRAP` : "Kit Complet — POPSTRAP";
+    const title = kit ? `Kit ${kit.name} — ROYALPOPS` : "Kit Complet — ROYALPOPS";
     const desc = kit
       ? `Kit complet ${kit.name} (coque + bracelet) pour Swatch × Audemars Piguet.`
-      : "Le kit complet pour Swatch × AP avec POPSTRAP.";
+      : "Le kit complet pour Swatch × AP avec ROYALPOPS.";
     return {
       meta: [
         { title },

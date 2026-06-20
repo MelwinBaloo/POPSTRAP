@@ -10,13 +10,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "POPSTRAP — Cadrans & bracelets pour Swatch × Audemars Piguet" },
+      { title: "ROYALPOPS — Kits complets pour Swatch × Audemars Piguet" },
       {
         name: "description",
         content:
           "Personnalisez votre Swatch × AP avec nos cadrans et bracelets premium. 10 modèles disponibles, installation simple, livraison rapide.",
       },
-      { property: "og:title", content: "POPSTRAP — Personnalisez votre Swatch × AP" },
+      { property: "og:title", content: "ROYALPOPS — Transformez votre Swatch × AP" },
       {
         property: "og:description",
         content:

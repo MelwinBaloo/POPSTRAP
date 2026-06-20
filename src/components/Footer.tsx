@@ -6,7 +6,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2">
               <div className="h-2.5 w-2.5 rounded-full bg-foreground" />
-              <span className="text-lg font-semibold tracking-tight">POPSTRAP</span>
+              <span className="text-lg font-semibold tracking-tight">ROYALPOPS</span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               Cadrans et bracelets premium conçus pour la Swatch × Audemars Piguet.
@@ -25,7 +25,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li><a href="/#compatibilite" className="hover:text-foreground">Compatibilité</a></li>
               <li><a href="/#faq" className="hover:text-foreground">FAQ</a></li>
-              <li><a href="mailto:contact@popstrap.fr" className="hover:text-foreground">Contact</a></li>
+              <li><a href="mailto:contact@royalpops.shop" className="hover:text-foreground">Contact</a></li>
             </ul>
           </div>
         </div>

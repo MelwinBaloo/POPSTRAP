@@ -1,5 +1,5 @@
 // ============================================================
-// POPSTRAP — Kits complets (coque + bracelet)
+// ROYALPOPS — Kits complets (coque + bracelet)
 // Un seul produit Shopify "Kit Complet", 8 couleurs
 // ============================================================
 

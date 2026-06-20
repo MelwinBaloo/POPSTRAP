@@ -7,7 +7,7 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:h-16 sm:px-6">
         <Link to="/" className="group flex items-center gap-2">
           <div className="h-2.5 w-2.5 rounded-full bg-foreground transition-transform group-hover:scale-110" />
-          <span className="text-lg font-semibold tracking-tight">POPSTRAP</span>
+          <span className="text-lg font-semibold tracking-tight">ROYALPOPS</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

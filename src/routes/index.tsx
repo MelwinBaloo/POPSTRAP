@@ -51,8 +51,8 @@ function Index() {
             </p>
             <div className="flex flex-wrap items-center gap-2 pt-1 md:gap-3 md:pt-2">
               <Button asChild size="lg" className="h-12 rounded-full px-5 text-sm font-semibold md:px-6">
-                <a href="#produits">
-                  Découvrir les produits
+                <a href="#modeles">
+                  Découvrir les coloris
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>

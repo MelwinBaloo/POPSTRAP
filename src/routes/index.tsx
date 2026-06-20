@@ -1,14 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
 import { ArrowRight, Check, Palette, Wrench, ShieldCheck } from "lucide-react";
-import { fetchAllProducts, getColorHex } from "@/lib/shopify";
+import { getColorHex } from "@/lib/shopify";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ModelCard } from "@/components/ModelCard";
-import { ProductCard } from "@/components/ProductCard";
+import { KitCard } from "@/components/KitCard";
+import { KIT_COLORS } from "@/lib/kits";
 import { Button } from "@/components/ui/button";
-import { WATCH_MODELS, findImageForColor } from "@/lib/models";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,32 +27,9 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const COLORS = [
-  "Rose",
-  "Rouge",
-  "Cyan",
-  "Vert pâle",
-  "Vert foncé",
-  "Turquoise",
-  "Noir",
-  "Bleu marine",
-  "Bleu ciel",
-  "Blanc",
-];
+const COLORS = KIT_COLORS.map((k) => k.name);
 
 function Index() {
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchAllProducts,
-  });
-
-  // Pick the Cadran product images (most colorful) to illustrate each model
-  const cadranImages = useMemo(() => {
-    const cadran = products.find((p) => p.node.productType.toLowerCase().includes("cadran"));
-    return cadran?.node.images.edges.map((e) => e.node) ?? [];
-  }, [products]);
-
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -129,73 +103,24 @@ function Index() {
         </div>
       </section>
 
-      {/* PRODUITS (Cadran & Bracelet) */}
-      <section id="produits" className="scroll-mt-20">
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6 md:py-20">
-          <div className="mb-8 md:mb-10">
-            <p className="text-[11px] uppercase tracking-wider text-muted-foreground sm:text-xs">La collection</p>
-            <h2 className="mt-2 text-[1.6rem] font-semibold tracking-tight sm:text-3xl md:text-4xl">
-              Cadran ou bracelet, à vous de choisir.
-            </h2>
-            <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-              Deux produits, {COLORS.length} coloris. Achetez à la pièce ou composez votre set complet
-              via le configurateur.
-            </p>
-          </div>
-
-          {isLoading ? (
-            <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
-              {Array.from({ length: 2 }).map((_, i) => (
-                <div key={i} className="aspect-[4/3] animate-pulse rounded-2xl bg-surface" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
-              {products
-                .filter((p) => !p.node.productType.toLowerCase().includes("set"))
-                .map((p) => (
-                  <ProductCard key={p.node.id} product={p} />
-                ))}
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* MODÈLES */}
       <section id="modeles" className="scroll-mt-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6 md:py-20">
           <div className="mb-8 md:mb-10">
-            <p className="text-[11px] uppercase tracking-wider text-muted-foreground sm:text-xs">Par modèle de montre</p>
+            <p className="text-[11px] uppercase tracking-wider text-muted-foreground sm:text-xs">Nos coloris</p>
             <h2 className="mt-2 text-[1.6rem] font-semibold tracking-tight sm:text-3xl md:text-4xl">
-              Configurez par modèle AP × Swatch.
+              8 éditions, une pour chaque style.
             </h2>
             <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-              {COLORS.length} éditions, une pour chaque langue. Cliquez sur un modèle pour configurer
-              votre cadran, votre bracelet ou le set complet.
+              Chaque kit comprend la coque et le bracelet assortis. Cliquez sur un coloris pour le découvrir.
             </p>
           </div>
 
-          {isLoading ? (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="aspect-square animate-pulse rounded-2xl bg-surface" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-              {WATCH_MODELS.map((model) => {
-                const img = findImageForColor(cadranImages, model.color);
-                return (
-                  <ModelCard
-                    key={model.slug}
-                    model={model}
-                    imageUrl={model.image ?? img?.url ?? null}
-                    imageAlt={img?.altText ?? model.name}
-                  />
-                );
-              })}
-            </div>
-          )}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+            {KIT_COLORS.map((kit) => (
+              <KitCard key={kit.slug} kit={kit} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -254,7 +179,7 @@ function Index() {
               },
               {
                 q: "Quels sont les délais de livraison ?",
-                a: "Les commandes sont expédiées sous 48h. Comptez 2 à 5 jours ouvrés pour la livraison en France.",
+                a: "Les commandes sont préparées sous 24-48h. Comptez 10 à 20 jours ouvrés pour la livraison.",
               },
               {
                 q: "Puis-je retourner mon achat ?",

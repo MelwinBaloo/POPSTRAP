@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { User } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 
 export function Header() {
@@ -34,7 +35,17 @@ export function Header() {
           </Link>
         </nav>
 
-        <CartDrawer />
+        <div className="flex items-center gap-2">
+          <a
+            href="https://checkout.royalpops.shop/account"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card transition-colors hover:bg-surface"
+            aria-label="Mon compte"
+            title="Mon compte"
+          >
+            <User className="h-4 w-4" />
+          </a>
+          <CartDrawer />
+        </div>
       </div>
     </header>
   );

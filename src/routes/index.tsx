@@ -43,7 +43,7 @@ function Index() {
               Conçu pour la Swatch × Audemars Piguet
             </span>
             <h1 className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-tight sm:text-4xl md:text-6xl">
-              Votre Swatch × AP, à votre image.
+              Votre <span className="whitespace-nowrap">Swatch × AP</span>, à votre image.
             </h1>
             <p className="max-w-md text-balance text-[15px] text-muted-foreground sm:text-base md:text-lg">
               Cadrans et bracelets en silicone premium, déclinés en {COLORS.length} coloris.

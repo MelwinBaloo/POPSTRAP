@@ -133,7 +133,7 @@ function Index() {
             <div>
               <p className="text-[11px] uppercase tracking-wider text-muted-foreground sm:text-xs">Compatibilité</p>
               <h2 className="mt-2 text-[1.6rem] font-semibold tracking-tight sm:text-3xl md:text-4xl">
-                Uniquement pour la Swatch × Audemars Piguet.
+                Uniquement pour la <span className="whitespace-nowrap">Swatch × Audemars Piguet</span>.
               </h2>
               <p className="mt-4 text-sm text-muted-foreground sm:text-base">
                 Nos cadrans et bracelets sont spécifiquement conçus pour s'adapter à la
